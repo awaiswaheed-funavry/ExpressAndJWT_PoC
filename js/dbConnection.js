@@ -13,6 +13,7 @@ exports.createTable = () => {
 }
 
 exports.insert = (req, res) => {
+    console.log("insert API Called.");
     const insertQuery = db.prepare(`INSERT INTO user VALUES ($id, $name,$email,$password, $permissionLevel)`);
     let salt = crypto.randomBytes(16).toString('base64');
     let hash = crypto.createHmac('sha512', salt)
@@ -20,7 +21,6 @@ exports.insert = (req, res) => {
         .digest("base64");
     req.body.password = salt + "$" + hash;
     req.body.id = null;
-    console.log('\n\nBody: ', req.body);
     try {
         var result = insertQuery.run(req.body);
         res.send({
@@ -36,6 +36,7 @@ exports.insert = (req, res) => {
 }
 
 exports.getById = (req, res) => {
+    console.log("GetById API Called.");
     const getByIdQuery = db.prepare(`SELECT * FROM user WHERE id = ?`);
     try {
         var result = getByIdQuery.all(req.params.id);
@@ -51,6 +52,7 @@ exports.getById = (req, res) => {
 }
 
 exports.getAll = (req, res) => {
+    console.log("GetAll API Called.");
     const getAll = db.prepare(`SELECT * FROM user`);
     try {
         var rs = getAll.all();
@@ -66,6 +68,7 @@ exports.getAll = (req, res) => {
 }
 
 exports.delete = (req, res) => {
+    console.log("Delete API Called.");
     const delQuery = db.prepare(`DELETE FROM user WHERE id = ?`);
     try {
         var result = delQuery.run(req.params.id);
