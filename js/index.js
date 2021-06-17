@@ -1,24 +1,23 @@
 const express = require('express');
-const dbCon = require('./dbConnection');
+const middleware = require('./middleware');
 const logger = require("./logger");
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-
 app.get('/ping', (req, res) => {
     res.send("RUNNINNNGGGG..");
 });
 
-app.post('/users', [dbCon.insert]);
+app.post('/users', [middleware.insert]);
 
-app.get('/users/:id', [dbCon.getById]);
+app.get('/users/:id', [middleware.getById]);
 
-app.get('/users', [dbCon.getAll]);
+app.get('/users', [middleware.getAll]);
 
-app.delete('/users/:id', [dbCon.delete]);
+app.delete('/users/:id', [middleware.delete]);
 
-dbCon.createTable();
+middleware.createTable();
 app.listen(port, () => {
     logger.print(`Listening on port ${port}...`);
 });
