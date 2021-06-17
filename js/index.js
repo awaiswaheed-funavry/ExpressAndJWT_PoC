@@ -1,5 +1,6 @@
 const express = require('express');
 const dbCon = require('./dbConnection');
+const logger = require("./logger");
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
@@ -19,5 +20,5 @@ app.delete('/users/:id', [dbCon.delete]);
 
 dbCon.createTable();
 app.listen(port, () => {
-    console.log(`Listening on port ${port}...`);
+    logger.print(`Listening on port ${port}...`);
 });
