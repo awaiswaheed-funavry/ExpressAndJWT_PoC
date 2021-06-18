@@ -1,0 +1,14 @@
+{
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "ecmaFeatures": {
+        // env=es6 doesn't include modules, which we are using
+        "modules": true
+    },
+}
